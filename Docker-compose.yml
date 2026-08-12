@@ -1,0 +1,57 @@
+# SERVICIOS QUE SE LEVANTAN
+services:
+  # PRIMER SERVICIO BACKEND
+  product-service:
+    # SE CONTRUYE A PARTIR DE DOCKERFILE
+    build:
+      context: ./product-service
+      dockerfile: Dockerfile
+    # NOMBRE DE CONTENEDOR
+    container_name: product-service-api
+    # LIMITACION DE MEMORIA DE CONTENEDOR
+    mem_limit: 512m
+    # SE MAPEA PUERTOS (DE HOST : DOCKER)
+    ports:
+      - "${APP_PORT}:8080"
+    # VARIABLES DE ENTORNO DE APLICACION, SE PUEDE CREAR UN ARCHIVO APARTE PARA NO COLOCAR EL TEXTO AQUI
+    environment:
+      SPRING_DATASOURCE_URL: ${POSTGRES_URL}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      SPRING_JPA_HIBERNATE_DDL_AUTO: ${JPA_HIBERNATE_DDL_AUTO}
+      SECRET_KEY: ${SECRET_KEY}
+    # INDICACION DE REINICIO
+    restart: always
+    # CONDICION PARA FUNCIONAMIENTO
+    depends_on:
+      product-service-db:
+        condition: service_healthy
+
+  # SEGUNDO SERVICIO BASE DE DATOS
+  product-service-db: # configuraciones de base de datos dockerizada
+    # IMAGEN A USAR PARA EL CONTENEDOR DE DB
+    image: postgres:18-alpine
+    # NOMBRE DE CONTENEDOR
+    container_name: container-ps-db
+    # MAPEO DE PUERTOS (DE HOST : DOCKER)
+    ports:
+      - "5432:5432"
+    # VOLUMEN PARA PERSISTENCIA DE DATOS
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    # VARIABLES DE ENTORNO DE BASE DE DATOS
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_HOST_AUTH_METHOD: scram-sha-256
+    restart: always
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+# ESPECIFICAR VOLUMEN PARA PERSISTENCIA DE DATOS
+volumes:
+  pgdata:

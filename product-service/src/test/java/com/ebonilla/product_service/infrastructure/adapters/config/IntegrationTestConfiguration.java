@@ -1,0 +1,22 @@
+package com.ebonilla.product_service.infrastructure.adapters.config;
+
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
+import org.springframework.context.annotation.Bean;
+import org.testcontainers.postgresql.PostgreSQLContainer;
+
+@TestConfiguration(proxyBeanMethods = false)
+public class IntegrationTestConfiguration {
+
+    @Bean
+    @ServiceConnection
+    PostgreSQLContainer postgreSQLContainer() {
+        PostgreSQLContainer container = PostgreSqlTestContainer.getInstance();
+
+        if (!container.isRunning()){
+            container.start();
+        }
+
+        return container;
+    }
+}

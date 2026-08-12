@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: product-service
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl:
+        auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO}
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          # Clave secreta temporal para OAuth2 Resource Server
+          secret-key: ${SECRET_KEY}
