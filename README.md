@@ -1,10 +1,11 @@
-**Service Products**
+# **Service Products**
 
 Microservicio REST para la gestión de productos, categorías, unidades de medida, proveedores y las relaciones entre productos y proveedores.
 
 El proyecto forma parte de una arquitectura de microservicios y está desarrollado utilizando Java 17 y Spring Boot 4.0.6, aplicando principios de Clean Architecture y Hexagonal Architecture para mantener desacoplada la lógica de negocio de los detalles de infraestructura.
 
-**Características**
+## **Características**
+
 Gestión de productos.
 Gestión de categorías.
 Gestión de unidades de medida.
@@ -23,13 +24,15 @@ PostgreSQL mediante Testcontainers para las pruebas de integración.
 Cobertura de código mediante JaCoCo.
 Ejecución mediante Docker y Docker Compose.
 
-**Arquitectura**
+
+## **Arquitectura**
 
 El proyecto combina principios de Clean Architecture y Hexagonal Architecture.
 
 La estructura principal separa el dominio y los casos de uso de los mecanismos utilizados para exponer y persistir la información.
 
-**Estructura de capas**
+## **Estructura de capas**
+
 Domain
 
 Contiene los elementos propios del dominio:
@@ -39,10 +42,7 @@ Value Objects.
 Validaciones.
 Reglas relacionadas con el modelo de negocio.
 
-domain
-├── model
-├── validation
-└── valueobjects
+
 
 Application
 
@@ -54,31 +54,21 @@ Ports.
 Use Cases.
 Excepciones de aplicación.
 
-application
-├── dto
-├── exception
-├── mapper
-├── ports
-└── usecase
-
 Los casos de uso se encuentran separados por responsabilidad, incluyendo operaciones relacionadas con productos, categorías, proveedores, unidades de medida y relaciones producto-proveedor.
+
+
 
 Infrastructure
 
 Contiene los detalles tecnológicos:
 
-infrastructure
-├── adapters
-│   ├── input
-│   │   └── rest
-│   └── output
-│       └── persistence
-└── config
-
 Los adaptadores REST funcionan como entrada al sistema, mientras que los adaptadores de persistencia implementan la comunicación con PostgreSQL.
 
 
-**Tecnologías**
+
+## **Tecnologías**
+
+
 * Java 17
 * Spring Boot 4.0.6
 * Spring Web MVC
@@ -98,10 +88,12 @@ Los adaptadores REST funcionan como entrada al sistema, mientras que los adaptad
 * Docker Compose
 * JaCoCo
 * Lombok
-* 
+
 Las dependencias y versiones principales están definidas en el pom.xml del servicio.
 
-**Seguridad**
+
+
+## **Seguridad**
 
 La API utiliza Spring Security OAuth2 Resource Server para validar tokens JWT.
 
@@ -128,7 +120,10 @@ La configuración actual utiliza una clave secreta proporcionada mediante la var
 
 Nota: este servicio funciona como Resource Server. La generación/autenticación de usuarios y tokens pertenece al servicio de autenticación dentro de la arquitectura de microservicios.
 
-**Swagger / OpenAPI**
+
+
+
+## **Swagger / OpenAPI**
 
 El proyecto utiliza Springdoc OpenAPI para generar automáticamente la documentación de la API.
 
@@ -154,7 +149,10 @@ http://localhost:8080/v3/api-docs
 
 Los contratos de los controladores utilizan anotaciones como @Operation, @ApiResponses, @Parameter y @Tag para documentar los endpoints.
 
-**Configuración**
+
+
+
+## **Configuración**
 
 La aplicación obtiene su configuración sensible mediante variables de entorno.
 
@@ -169,7 +167,10 @@ SECRET_KEY	Clave utilizada para la validación JWT
 
 La configuración de application.yaml utiliza estas variables en lugar de almacenar directamente las credenciales.
 
-**Ejecución local**
+
+
+## **Ejecución local**
+
 Requisitos
 
 Antes de ejecutar el proyecto necesitas:
@@ -216,7 +217,9 @@ En Windows:
 mvnw.cmd spring-boot:run
 
 
-**Ejecución con Docker Compose**
+
+
+## **Ejecución con Docker Compose**
 
 El repositorio incluye un Docker-compose.yml en la raíz.
 
@@ -242,7 +245,7 @@ El último comando elimina los datos persistidos en el volumen pgdata.
 
 
 
-**Testing**
+## **Testing**
 
 Para ejecutar las pruebas:
 
@@ -267,7 +270,7 @@ spring-security-test
 
 
 
-**Cobertura de código**
+## **Cobertura de código**
 
 La cobertura se genera mediante JaCoCo.
 
@@ -283,7 +286,8 @@ El proyecto utiliza jacoco-maven-plugin versión 0.8.13.
 
 
 
-**Decisiones técnicas**
+## **Decisiones técnicas**
+
 Clean Architecture + Hexagonal Architecture
 
 Se utiliza una combinación de ambos enfoques para reducir el acoplamiento entre la lógica de negocio y la infraestructura.
@@ -313,29 +317,29 @@ Las pruebas de integración utilizan PostgreSQL mediante Testcontainers para apr
 
 
 
-**Estado del proyecto**
+## **Estado del proyecto**
 
 Actualmente el microservicio proporciona operaciones para:
 
-1. [ ] ~~Productos
-2. [ ] Categorías
-3. [ ] Proveedores
-4. [ ] Unidades de medida
-5. [ ] Relaciones producto-proveedor
-6. [ ] Validación de requests
-7. [ ] Manejo de excepciones
-8. [ ] JWT / OAuth2 Resource Server
-9. [ ] OpenAPI / Swagger
-10. [ ] Unit testing
-11. [ ] Integration testing
-12. [ ] Testcontainers
-13. [ ] Docker
-14. [ ] Docker Compose
-15. [ ] JaCoCo~~
+* Productos
+* Categorías
+* Proveedores
+* Unidades de medida
+* Relaciones producto-proveedor
+* Validación de requests
+* Manejo de excepciones
+* JWT / OAuth2 Resource Server
+* OpenAPI / Swagger
+* Unit testing
+* Integration testing
+* Testcontainers
+* Docker
+* Docker Compose
+* JaCoCo
 
 
 
-**Próximos pasos**
+## **Próximos pasos**
 
 El proyecto forma parte de una arquitectura de microservicios en evolución.
 
@@ -352,7 +356,7 @@ Mejoras adicionales de seguridad.
 Versionado y gestión de releases.
 
 
-👨‍💻 Autor
+## **Autor**
 
 Eloy Bonilla
 
